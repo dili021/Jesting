@@ -1,3 +1,4 @@
+// eslint disable import/no-unresolved
 import analyze from '../analyze';
 
 const tester = analyze([1, 2, 3, 4, 5]);
