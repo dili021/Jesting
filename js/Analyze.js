@@ -10,5 +10,4 @@ const analyze = arr => {
     length,
   };
 };
-
 export default analyze;
