@@ -12,5 +12,4 @@ const calculator = {
     return nums.reduce((a, b) => a * b);
   },
 };
-
 export default calculator;
