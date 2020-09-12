@@ -1,19 +1,24 @@
 const caesarize = (string, offset) => {
-  let crypt = '';
-  for (let i = 0; i < string.length; i += 1) {
-    let char;
-    if (string[i].match(/[a-z]/i)) {
-      const code = string.charCodeAt(i);
-      if ((code >= 65) && (code <= 90)) {
-        char = String.fromCharCode(((code - 65 + offset) % 26) + 65);
-      }
-      if ((code >= 97) && (code <= 122)) {
-        char = String.fromCharCode(((code - 97 + offset) % 26) + 97);
-      }
+  // fix JS modulo issue
+  const mod = (a, b) => {
+    if (a < 0) a = (b - Math.abs(a)) % b;
+    return a % b;
+  };
+  const encoder = (character, offset) => {
+    const keyCode = character.charCodeAt();
+    const base = character === character.toLowerCase() ? 97 : 65;
+    let encodedChar;
+    const coord = keyCode - base + offset;
+    if (keyCode >= 97 && keyCode <= 122) {
+      encodedChar = String.fromCharCode(mod(coord, 26) + base);
+    } else if (keyCode >= 65 && keyCode <= 90) {
+      encodedChar = String.fromCharCode(mod(coord, 26) + base);
+    } else {
+      encodedChar = character;
     }
-    crypt += char;
-  }
-  return crypt;
+    return encodedChar;
+  };
+  return [...string].map(char => encoder(char, offset)).join('');
 };
 
 export default caesarize;
